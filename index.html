@@ -16,7 +16,8 @@
 
         // Load your 3D mesh
         var loader = new THREE.OBJLoader();
-        loader.load('your_mesh.obj', function (mesh) {
+        loader.load('your_mesh.obj', 
+           function (mesh) {
             scene.add(mesh);
 
             // Add animation and controls here
@@ -27,7 +28,26 @@
             // Set camera position and look at the mesh
             camera.position.z = 5;
             camera.lookAt(mesh.position);
-        });
+           },
+           function (xhr) {
+               console.log('Loading progress:', (xhr.loaded / xhr.total * 100) + '%');
+            },
+           function (error) {
+               console.error('Error loading model:', error);
+         }
+);
+        // loader.load('your_mesh.obj', function (mesh) {
+        //     scene.add(mesh);
+
+        //     // Add animation and controls here
+        //     // Example: You can use OrbitControls to allow rotation
+
+        //     var controls = new THREE.OrbitControls(camera, renderer.domElement);
+
+        //     // Set camera position and look at the mesh
+        //     camera.position.z = 5;
+        //     camera.lookAt(mesh.position);
+        // });
 
         // Animation loop
         var animate = function () {
