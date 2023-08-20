@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Interactive 3D Model</title>
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        // Initialize Three.js scene
+        var scene = new THREE.Scene();
+        var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        var renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // Load your 3D mesh
+        var loader = new THREE.OBJLoader();
+        loader.load('your_mesh.obj', function (mesh) {
+            scene.add(mesh);
+
+            // Add animation and controls here
+            // Example: You can use OrbitControls to allow rotation
+
+            var controls = new THREE.OrbitControls(camera, renderer.domElement);
+
+            // Set camera position and look at the mesh
+            camera.position.z = 5;
+            camera.lookAt(mesh.position);
+        });
+
+        // Animation loop
+        var animate = function () {
+            requestAnimationFrame(animate);
+            renderer.render(scene, camera);
+        };
+
+        animate();
+    </script>
+</body>
+</html>
